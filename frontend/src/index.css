@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bullish: #ef4444;
+    --color-bearish: #22c55e;
+    --color-neutral: #6b7280;
+  }
+
+  body {
+    @apply antialiased;
+  }
+
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-600;
+  }
+}
+
+@layer components {
+  /* 快讯时间轴样式 */
+  .timeline-dot {
+    @apply w-2 h-2 rounded-full bg-primary-500 absolute left-0 top-2.5 -translate-x-1/2;
+  }
+
+  .timeline-dot--important {
+    @apply w-3 h-3 bg-red-500 animate-pulse-slow;
+  }
+
+  .timeline-line {
+    @apply absolute left-0 top-0 bottom-0 w-px bg-gray-200 dark:bg-gray-800;
+  }
+
+  /* 情绪标签 */
+  .sentiment-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .sentiment-badge--positive {
+    @apply bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400;
+  }
+
+  .sentiment-badge--negative {
+    @apply bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400;
+  }
+
+  .sentiment-badge--neutral {
+    @apply bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400;
+  }
+
+  /* 栏目标签 */
+  .category-tab {
+    @apply px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer;
+    @apply text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100;
+    @apply hover:bg-gray-100 dark:hover:bg-gray-800;
+  }
+
+  .category-tab--active {
+    @apply bg-primary-500 text-white hover:bg-primary-600;
+    @apply dark:bg-primary-600 dark:hover:bg-primary-500;
+    @apply hover:text-white dark:hover:text-white;
+  }
+
+  /* 新闻卡片 */
+  .news-card {
+    @apply p-4 rounded-xl border border-gray-200 dark:border-gray-800;
+    @apply bg-white dark:bg-gray-900/50;
+    @apply hover:border-primary-300 dark:hover:border-primary-700;
+    @apply transition-all duration-200;
+    @apply animate-fade-in;
+  }
+}
