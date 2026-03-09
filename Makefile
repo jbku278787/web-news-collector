@@ -1,4 +1,9 @@
-.PHONY: help dev dev-backend dev-frontend install install-backend install-frontend \
+# 安装 Python 3.11+
+python3 -m venv /opt/web-news-collector/backend/.venv
+source /opt/web-news-collector/backend/.venv/bin/activate
+pip install -r /opt/web-news-collector/backend/requirements.txt
+
+# 用 systemd 管理进程.PHONY: help dev dev-backend dev-frontend install install-backend install-frontend \
        build lint test clean docker-up docker-down crawl
 
 # ---------- 默认 ----------
