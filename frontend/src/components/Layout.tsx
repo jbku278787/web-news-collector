@@ -11,7 +11,6 @@ import {
   Database,
   Sun,
   Moon,
-  RefreshCw,
   Menu,
 } from "lucide-react";
 import { clsx } from "clsx";

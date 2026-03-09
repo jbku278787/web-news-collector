@@ -2,8 +2,7 @@
  * 数据源管理页面
  */
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { clsx } from "clsx";
-import { RefreshCw, ExternalLink, Activity } from "lucide-react";
+import { RefreshCw, ExternalLink } from "lucide-react";
 import { fetchSources, fetchSourcesStatus, triggerCrawl } from "@/services/api";
 
 export function SourcesPage() {
