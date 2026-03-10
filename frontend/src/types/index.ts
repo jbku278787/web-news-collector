@@ -58,12 +58,17 @@ export interface NewsListResponse {
   has_more: boolean;
 }
 
+// 带状态信息的新闻源（包含统计字段）
+export interface NewsSourceWithStatus extends NewsSource {
+  total_items?: number;
+}
+
 // 源状态
 export interface SourceStatus {
   total_sources: number;
   active_sources: number;
   total_items: number;
-  sources: NewsSource[];
+  sources: NewsSourceWithStatus[];
 }
 
 // 栏目定义
