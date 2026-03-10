@@ -3,7 +3,7 @@
 """
 import hashlib
 from abc import ABC, abstractmethod
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
 import httpx
@@ -85,27 +85,33 @@ class BaseCrawler(ABC):
         return f"{source_id}_{url_hash}"
 
     @staticmethod
-    def parse_datetime(dt_str: str, fmt: str = None) -> Optional[datetime]:
-        """安全地解析时间字符串"""
+    def parse_datetime(dt_str: str, fmt: str = None, cst_to_utc: bool = False) -> Optional[datetime]:
+        """安全地解析时间字符串。cst_to_utc=True 时将尾部所1律视为 CST +8 转为 UTC"""
         if not dt_str:
             return None
         try:
+            result = None
             if fmt:
-                return datetime.strptime(dt_str, fmt)
-            # 尝试常见格式
-            for f in [
-                "%Y-%m-%dT%H:%M:%S",
-                "%Y-%m-%dT%H:%M:%SZ",
-                "%Y-%m-%dT%H:%M:%S.%f",
-                "%Y-%m-%dT%H:%M:%S%z",
-                "%Y-%m-%d %H:%M:%S",
-                "%Y-%m-%d %H:%M",
-                "%Y/%m/%d %H:%M:%S",
-            ]:
-                try:
-                    return datetime.strptime(dt_str.strip(), f)
-                except ValueError:
-                    continue
+                result = datetime.strptime(dt_str, fmt)
+            else:
+                # 尝试常见格式
+                for f in [
+                    "%Y-%m-%dT%H:%M:%S",
+                    "%Y-%m-%dT%H:%M:%SZ",
+                    "%Y-%m-%dT%H:%M:%S.%f",
+                    "%Y-%m-%dT%H:%M:%S%z",
+                    "%Y-%m-%d %H:%M:%S",
+                    "%Y-%m-%d %H:%M",
+                    "%Y/%m/%d %H:%M:%S",
+                ]:
+                    try:
+                        result = datetime.strptime(dt_str.strip(), f)
+                        break
+                    except ValueError:
+                        continue
+            if result is not None and cst_to_utc and result.tzinfo is None:
+                result = result - timedelta(hours=8)  # CST (UTC+8) 转为 UTC
+            return result
         except Exception:
             pass
         return None

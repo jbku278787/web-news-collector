@@ -54,7 +54,7 @@ class WallStreetCNCrawler(BaseCrawler):
 
                 display_time = item.get("display_time")
                 published_at = (
-                    datetime.fromtimestamp(display_time) if display_time else None
+                    datetime.utcfromtimestamp(display_time) if display_time else None
                 )
 
                 uri = item.get("uri", "") or str(item.get("id", ""))

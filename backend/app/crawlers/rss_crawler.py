@@ -87,8 +87,8 @@ class RSSCrawler(BaseCrawler):
             if parsed:
                 try:
                     import calendar
-                    # calendar.timegm 把 UTC struct_time → Unix timestamp，再转本地时间
-                    return datetime.fromtimestamp(calendar.timegm(parsed))
+                    # calendar.timegm 把 UTC struct_time → Unix timestamp，再存为 UTC datetime
+                    return datetime.utcfromtimestamp(calendar.timegm(parsed))
                 except Exception:
                     continue
         return None

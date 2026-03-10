@@ -49,7 +49,7 @@ class SinaFinanceCrawler(BaseCrawler):
                     continue
 
                 ctime = item.get("ctime", "")
-                published_at = self.parse_datetime(ctime, "%Y-%m-%d %H:%M:%S")
+                published_at = self.parse_datetime(ctime, "%Y-%m-%d %H:%M:%S", cst_to_utc=True)
 
                 items.append(
                     NewsItemCreate(

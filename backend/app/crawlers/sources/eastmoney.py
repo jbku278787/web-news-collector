@@ -55,7 +55,7 @@ class EastMoneyCrawler(BaseCrawler):
                 url = item.get("url", "") or f"https://finance.eastmoney.com/a/{art_code}.html"
 
                 showtime = item.get("showtime", "")
-                published_at = self.parse_datetime(showtime)
+                published_at = self.parse_datetime(showtime, cst_to_utc=True)
 
                 items.append(
                     NewsItemCreate(

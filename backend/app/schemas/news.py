@@ -1,9 +1,18 @@
 """
 新闻相关 Pydantic Schema
 """
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, field_serializer
+
+
+def _fmt_utc(dt: Optional[datetime]) -> Optional[str]:
+    """将裸 datetime（均视为 UTC）转为带 Z 的 ISO 字符串，供前端正确解析时区"""
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.isoformat().replace("+00:00", "Z")
 
 
 class NewsItemBase(BaseModel):
@@ -36,6 +45,10 @@ class NewsItemResponse(NewsItemBase):
     class Config:
         from_attributes = True
 
+    @field_serializer("published_at", "crawled_at", "processed_at", when_used="json")
+    def serialize_dt(self, dt: Optional[datetime]) -> Optional[str]:
+        return _fmt_utc(dt)
+
 
 class NewsTimelineItem(BaseModel):
     """快讯时间轴条目（精简版）"""
@@ -49,6 +62,10 @@ class NewsTimelineItem(BaseModel):
     tags: Optional[list[str]] = None
     importance: int = 0
     published_at: Optional[datetime] = None
+
+    @field_serializer("published_at", when_used="json")
+    def serialize_dt(self, dt: Optional[datetime]) -> Optional[str]:
+        return _fmt_utc(dt)
 
 
 class NewsListResponse(BaseModel):

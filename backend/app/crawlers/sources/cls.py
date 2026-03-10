@@ -66,7 +66,7 @@ class CLSCrawler(BaseCrawler):
 
                 ctime = item.get("ctime")
                 published_at = (
-                    datetime.fromtimestamp(ctime) if ctime else None
+                    datetime.utcfromtimestamp(ctime) if ctime else None
                 )
 
                 url = f"https://www.cls.cn/detail/{item.get('id', '')}"
@@ -106,7 +106,7 @@ class CLSCrawler(BaseCrawler):
 
                 ctime = item.get("ctime")
                 published_at = (
-                    datetime.fromtimestamp(ctime) if ctime else None
+                    datetime.utcfromtimestamp(ctime) if ctime else None
                 )
 
                 article_url = item.get("shareurl") or f"https://www.cls.cn/detail/{item.get('id', '')}"

@@ -37,7 +37,7 @@ async def get_timeline(
 
     query = select(NewsItem)
 
-    # 时间范围
+    # 时间范围（UTC）
     since = datetime.utcnow() - timedelta(hours=hours)
     query = query.where(NewsItem.published_at >= since)
 
@@ -79,7 +79,7 @@ async def get_timeline(
 async def get_timeline_stats(
     db: AsyncSession = Depends(get_db),
 ):
-    """获取时间轴统计信息"""
+    """ 获取时间轴统计信息"""
     now = datetime.utcnow()
 
     # 最近24小时各栏目统计

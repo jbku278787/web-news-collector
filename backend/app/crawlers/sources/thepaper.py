@@ -41,7 +41,7 @@ class ThePaperCrawler(BaseCrawler):
 
                 pub_time = item.get("pubTimeLong")
                 published_at = (
-                    datetime.fromtimestamp(pub_time / 1000)
+                    datetime.utcfromtimestamp(pub_time / 1000)
                     if pub_time
                     else None
                 )
