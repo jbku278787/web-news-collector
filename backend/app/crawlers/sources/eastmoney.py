@@ -38,6 +38,10 @@ class EastMoneyCrawler(BaseCrawler):
                     "pageNo": 1,
                     "appname": "website",
                 },
+                headers={
+                    "Referer": "https://www.eastmoney.com/",
+                    "Origin": "https://www.eastmoney.com",
+                },
             )
             resp.raise_for_status()
             data = resp.json()

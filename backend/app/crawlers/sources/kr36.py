@@ -30,6 +30,11 @@ class Kr36Crawler(BaseCrawler):
             resp = await client.post(
                 self.NEWS_API,
                 json={"partner_id": "wap", "timestamp": int(datetime.now().timestamp())},
+                headers={
+                    "Referer": "https://36kr.com/",
+                    "Origin": "https://36kr.com",
+                    "Content-Type": "application/json",
+                },
             )
             resp.raise_for_status()
             data = resp.json()

@@ -61,14 +61,14 @@ _RSS_SOURCES = [
         "source_id": "jinse",
         "source_name": "金色财经",
         "source_url": "https://www.jinse.cn",
-        "feed_url": "https://rsshub.app/jinse/catalogue/zhengce",
+        "feed_url": "https://www.jinse.cn/rss",
         "category": "finance",
     },
     {
         "source_id": "zaobao",
         "source_name": "联合早报",
         "source_url": "https://www.zaobao.com",
-        "feed_url": "https://rsshub.app/zaobao/realtime/china",
+        "feed_url": "https://www.zaobao.com/rss/znews-t.xml",
         "category": "world",
     },
     {
@@ -82,7 +82,7 @@ _RSS_SOURCES = [
         "source_id": "hackernews",
         "source_name": "Hacker News",
         "source_url": "https://news.ycombinator.com",
-        "feed_url": "https://rsshub.app/hackernews/best",
+        "feed_url": "https://hnrss.org/best",
         "category": "tech",
     },
 ]

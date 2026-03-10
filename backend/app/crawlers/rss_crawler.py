@@ -81,13 +81,14 @@ class RSSCrawler(BaseCrawler):
 
     @staticmethod
     def _parse_feed_date(entry) -> Optional[datetime]:
-        """从 feedparser entry 解析发布时间"""
+        """从 feedparser entry 解析发布时间（feedparser 返回 UTC struct_time）"""
         for field in ("published_parsed", "updated_parsed"):
             parsed = entry.get(field)
             if parsed:
                 try:
-                    from time import mktime
-                    return datetime.fromtimestamp(mktime(parsed))
+                    import calendar
+                    # calendar.timegm 把 UTC struct_time → Unix timestamp，再转本地时间
+                    return datetime.fromtimestamp(calendar.timegm(parsed))
                 except Exception:
                     continue
         return None

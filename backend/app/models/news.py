@@ -31,7 +31,7 @@ class NewsItem(Base):
 
     # 时间
     published_at = Column(DateTime, nullable=True, index=True)
-    crawled_at = Column(DateTime, default=datetime.utcnow)
+    crawled_at = Column(DateTime, default=datetime.now)
     processed_at = Column(DateTime, nullable=True)  # AI 处理完成时间
 
     # 元信息
